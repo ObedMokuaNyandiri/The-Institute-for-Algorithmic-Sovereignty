@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -21,20 +20,42 @@ function App() {
   const [selectedPaperId, setSelectedPaperId] = useState<string | null>(null);
   const [archiveSearchTerm, setArchiveSearchTerm] = useState<string>('');
 
-  // Handle scrolling after view change
+  // Robust scrolling mechanism that handles view transition delays
   const scrollToSection = (sectionId: string) => {
-    // We need a small timeout to allow the view to render if we are switching views
-    setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      } else if (sectionId === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 1. If target is 'home' (top), just scroll window
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // 2. Try finding element immediately
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // 3. If view is changing, element might not exist yet. Poll for it.
+    let attempts = 0;
+    const maxAttempts = 10; // 1 second total
+    const interval = setInterval(() => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        clearInterval(interval);
+      } else {
+        attempts++;
+        if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          // Fallback: scroll to top if section not found
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     }, 100);
   };
 
   const handleNavigation = (target: string) => {
+    // Direct View Routes
     if (target === 'about') {
         setView('about');
         window.scrollTo(0, 0);
@@ -59,8 +80,10 @@ function App() {
         return;
     }
 
+    // Landing Page Sections
     if (view !== 'landing') {
       setView('landing');
+      // We pass the target to scrollToSection which will poll until landing renders
       scrollToSection(target);
     } else {
       scrollToSection(target);

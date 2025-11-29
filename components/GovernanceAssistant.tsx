@@ -1,5 +1,4 @@
 
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage, AnalystTool } from '../types';
 import { sendMessageToInstituteAI } from '../services/geminiService';
@@ -282,29 +281,28 @@ const GovernanceAssistant: React.FC<GovernanceAssistantProps> = ({ onNavigate })
                                     </div>
                                 </div>
                                 
-                                <h3 className="text-2xl font-serif text-ias-primary mb-4 font-medium tracking-tight">
-                                    Aegis is online. What shall we explore?
+                                <h3 className="text-3xl font-serif text-ias-primary mb-4 font-medium tracking-tight">
+                                    Aegis Intelligence Active.
                                 </h3>
-                                <p className="text-ias-slate text-sm mb-8 font-medium max-w-md mx-auto leading-relaxed">
-                                    I am designed to help you navigate the complex future of technology and power. 
-                                    Select a tool below or pick a question to see what I can do.
+                                <p className="text-ias-slate text-sm mb-10 font-medium max-w-md mx-auto leading-relaxed text-balance">
+                                    The world is changing faster than laws can keep up. Ask a question to understand the future of power.
                                 </p>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mt-4">
                                     {[
-                                        "How is AI changing who holds power in the world?",
-                                        "What happens when machines make decisions instead of humans?",
-                                        "Why is 'data sovereignty' so important right now?",
-                                        "Draft a simple strategy to protect against deepfakes."
+                                        "How will AI change modern warfare?",
+                                        "Who owns the data in the cloud?",
+                                        "Can AI manipulate human elections?",
+                                        "Should we tax autonomous robots?"
                                     ].map((q, i) => (
                                         <button 
                                             key={i} 
                                             onClick={(e) => handleSend(e, q)} 
-                                            className="p-4 bg-white/60 backdrop-blur-sm border border-ias-line hover:border-ias-action/50 hover:bg-white hover:shadow-md text-left transition-all duration-300 rounded-lg group"
+                                            className="p-5 bg-white/60 backdrop-blur-sm border border-ias-line hover:border-ias-action/50 hover:bg-white hover:shadow-lg hover:-translate-y-0.5 text-left transition-all duration-300 rounded-lg group"
                                         >
                                             <div className="flex items-center justify-between">
-                                                <span className="text-xs text-ias-ink font-bold group-hover:text-ias-primary transition-colors pr-2">{q}</span>
-                                                <svg className="w-3 h-3 text-ias-action opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                                <span className="text-sm text-ias-ink font-bold group-hover:text-ias-primary transition-colors pr-2">{q}</span>
+                                                <svg className="w-4 h-4 text-ias-action opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                             </div>
                                         </button>
                                     ))}
