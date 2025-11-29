@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Institute for Algorithmic Sovereignty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Playfair Display"', 'serif'],
+              sans: ['"Inter"', 'sans-serif'],
+            },
+            colors: {
+              ias: {
+                paper: '#F1F5F9',     // Cool Gray 100 - Main Background
+                surface: '#FFFFFF',   // Pure white - Cards
+                ink: '#0F172A',       // Slate 900 - Primary Text (Max Contrast)
+                slate: '#334155',     // Slate 700 - Secondary Text (High Contrast)
+                primary: '#1E3A8A',   // Blue 900 - Brand Primary (Deep Navy)
+                action: '#0284C7',    // Sky 600 - Buttons/Links (Vibrant)
+                accent: '#0F766E',    // Teal 700 - Semantic accents (Tags/Icons)
+                line: '#CBD5E1',      // Slate 300 - Borders (Visible)
+                subtle: '#E2E8F0',    // Slate 200 - Background accents
+              }
+            },
+            animation: {
+              'blob': 'blob 7s infinite',
+              'fadeInUp': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'pulseSubtle': 'pulseSubtle 4s infinite ease-in-out',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              pulseSubtle: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.8' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.0/client",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@emailjs/browser": "https://aistudiocdn.com/@emailjs/browser@^3.11.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-ias-paper text-ias-ink antialiased selection:bg-ias-action selection:text-white">
+    <div id="root"></div>
+  </body>
+</html>
