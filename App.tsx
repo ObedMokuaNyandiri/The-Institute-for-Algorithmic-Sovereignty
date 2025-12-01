@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+// NOTE: All imported components must be present in the repository
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Mission from './components/Mission';
@@ -13,7 +13,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Legal from './components/Legal';
 import { SectionId, ViewState } from './types';
-import { PAPERS, FEATURED_PAPERS } from './constants';
+// NOTE: All imported constants must be present in the repository
+import { PAPERS, FEATURED_PAPERS } from './constants'; 
 
 function App() {
   const [view, setView] = useState<ViewState>('landing');
@@ -123,15 +124,13 @@ function App() {
     footerVariant = 'default';
   }
 
-  return (
-    <div className="min-h-screen bg-ias-paper font-sans text-ias-ink selection:bg-ias-action selection:text-white">
-      <div className="fixed inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none"></div>
-      
-      {/* Hide standard Header on Contact & Legal pages as they have their own minimal headers */}
-      {view !== 'contact' && view !== 'legal' && <Header onNavigate={handleNavigation} currentView={view} />}
-      
-      <main className="relative z-10">
-        {view === 'landing' && (
+  // ISSUE: The blank page means one of the components is crashing or rendering nothing.
+  // We wrap the entire application in a structure that guarantees visibility if no view is matched.
+  
+  const renderContent = () => {
+    switch (view) {
+      case 'landing':
+        return (
           <>
             <Hero onNavigate={handleNavigation} />
             <Mission />
@@ -141,9 +140,9 @@ function App() {
               onTagClick={handleTagClick}
             />
           </>
-        )}
-        
-        {view === 'archive' && (
+        );
+      case 'archive':
+        return (
           <Archive 
             onBack={() => {
               setView('landing');
@@ -151,43 +150,65 @@ function App() {
             }} 
             initialSearchTerm={archiveSearchTerm}
           />
-        )}
+        );
+      case 'paper':
+        if (!selectedPaper) return <ErrorMessage message="Error: Paper not found." />;
+        return isFeatured ? (
+          <FeaturedPaperDetail 
+            paper={selectedPaper}
+            onBack={() => {
+              setView('landing');
+              scrollToSection(SectionId.RESEARCH);
+            }}
+          />
+        ) : (
+          <PaperDetail 
+            paper={selectedPaper}
+            onBack={() => {
+              setView('landing');
+              scrollToSection(SectionId.RESEARCH);
+            }}
+          />
+        );
+      case 'about':
+        return <About onNavigate={handleNavigation} />;
+      case 'contact':
+        return <Contact onNavigate={handleNavigation} />;
+      case 'legal':
+        return <Legal onNavigate={handleNavigation} />;
+      case 'aegis':
+        return <GovernanceAssistant onNavigate={handleNavigation} />;
+      default:
+        // FALLBACK: If the view state is invalid, show a diagnostic message.
+        return <ErrorMessage message={`Diagnostic: Unknown view state: ${view}`} />;
+    }
+  };
 
-        {view === 'paper' && selectedPaper && (
-          isFeatured ? (
-            <FeaturedPaperDetail 
-              paper={selectedPaper}
-              onBack={() => {
-                setView('landing');
-                scrollToSection(SectionId.RESEARCH);
-              }}
-            />
-          ) : (
-            <PaperDetail 
-              paper={selectedPaper}
-              onBack={() => {
-                setView('landing');
-                scrollToSection(SectionId.RESEARCH);
-              }}
-            />
-          )
-        )}
-
-        {view === 'about' && (
-            <About onNavigate={handleNavigation} />
-        )}
-
-        {view === 'contact' && (
-            <Contact onNavigate={handleNavigation} />
-        )}
-        
-        {view === 'legal' && (
-            <Legal onNavigate={handleNavigation} />
-        )}
-        
-        {view === 'aegis' && (
-            <GovernanceAssistant onNavigate={handleNavigation} />
-        )}
+  return (
+    <div className="min-h-screen bg-ias-paper font-sans text-ias-ink selection:bg-ias-action selection:text-white">
+      {/* ADDED A VISIBILITY CHECKER HERE */}
+      <div 
+        style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          zIndex: 9999, 
+          backgroundColor: 'red', 
+          color: 'white', 
+          padding: '5px',
+          fontSize: '12px',
+        }}
+      >
+        LIVE: {view}
+      </div>
+      
+      <div className="fixed inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none"></div>
+      
+      {/* Hide standard Header on Contact & Legal pages as they have their own minimal headers */}
+      {view !== 'contact' && view !== 'legal' && <Header onNavigate={handleNavigation} currentView={view} />}
+      
+      <main className="relative z-10">
+        {renderContent()}
       </main>
       
       {/* Dynamic Footer based on view */}
@@ -195,5 +216,17 @@ function App() {
     </div>
   );
 }
+
+// Simple component for displaying diagnostic errors or fallback content
+const ErrorMessage = ({ message }: { message: string }) => (
+    <div 
+        className="pt-20 text-center p-8 text-white bg-red-600 rounded-lg shadow-xl m-8" 
+        style={{ minHeight: '80vh', color: 'white', backgroundColor: 'red' }}
+    >
+        <h2 className="text-3xl font-bold">DEPLOYMENT SUCCESSFUL - APP CRASH DIAGNOSTIC</h2>
+        <p className="mt-4 text-xl">{message}</p>
+        <p className="mt-8">The problem is likely within one of the imported components (e.g., Hero, Mission, ResearchGrid).</p>
+    </div>
+);
 
 export default App;
