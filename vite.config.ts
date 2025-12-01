@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-        // ADDED THIS LINE: Forces asset paths to be relative, fixing deployment on most static hosts.
         base: './', 
         
         server: {
