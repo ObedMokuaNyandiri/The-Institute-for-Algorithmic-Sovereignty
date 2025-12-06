@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { SectionId } from '../types';
 
@@ -145,8 +144,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, variant = 'default' }) => {
                            Aegis Analyst
                        </button>
                    </li>
-                   <li><button onClick={nav('legal')} className="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-center gap-2 group"><span className="w-1 h-1 bg-slate-600 rounded-full group-hover:bg-blue-400 transition-colors"></span>Privacy Policy</button></li>
-                   <li><button onClick={nav('legal')} className="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-center gap-2 group"><span className="w-1 h-1 bg-slate-600 rounded-full group-hover:bg-blue-400 transition-colors"></span>Terms of Engagement</button></li>
+                   <li><button onClick={nav('legal-privacy')} className="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-center gap-2 group"><span className="w-1 h-1 bg-slate-600 rounded-full group-hover:bg-blue-400 transition-colors"></span>Privacy Policy</button></li>
+                   <li><button onClick={nav('legal-terms')} className="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-center gap-2 group"><span className="w-1 h-1 bg-slate-600 rounded-full group-hover:bg-blue-400 transition-colors"></span>Terms of Engagement</button></li>
                    <li>
                        <div className="flex items-center gap-2 text-slate-600 cursor-not-allowed opacity-50">
                            <span className="w-1 h-1 bg-slate-700 rounded-full"></span>

@@ -3,14 +3,16 @@ import React, { useEffect, useState } from 'react';
 
 interface LegalProps {
   onNavigate: (sectionId: string) => void;
+  initialTab?: 'privacy' | 'terms';
 }
 
-const Legal: React.FC<LegalProps> = ({ onNavigate }) => {
-  const [activeTab, setActiveTab] = useState<'privacy' | 'terms'>('privacy');
+const Legal: React.FC<LegalProps> = ({ onNavigate, initialTab = 'privacy' }) => {
+  const [activeTab, setActiveTab] = useState<'privacy' | 'terms'>(initialTab);
 
   useEffect(() => {
+    setActiveTab(initialTab);
     window.scrollTo(0, 0);
-  }, []);
+  }, [initialTab]);
 
   const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 

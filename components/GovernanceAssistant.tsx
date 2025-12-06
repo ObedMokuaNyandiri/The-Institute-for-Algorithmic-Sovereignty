@@ -282,18 +282,18 @@ const GovernanceAssistant: React.FC<GovernanceAssistantProps> = ({ onNavigate })
                                 </div>
                                 
                                 <h3 className="text-3xl font-serif text-ias-primary mb-4 font-medium tracking-tight">
-                                    Aegis Intelligence Active.
+                                    System Ready.
                                 </h3>
                                 <p className="text-ias-slate text-sm mb-10 font-medium max-w-md mx-auto leading-relaxed text-balance">
-                                    The world is changing faster than laws can keep up. Ask a question to understand the future of power.
+                                    Select a research protocol below and input your query to begin analysis.
                                 </p>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mt-4">
                                     {[
-                                        "How will AI change modern warfare?",
-                                        "Who owns the data in the cloud?",
-                                        "Can AI manipulate human elections?",
-                                        "Should we tax autonomous robots?"
+                                        "Analyze sovereign cloud risks.",
+                                        "Explain the doctrine of Cognitive Sovereignty.",
+                                        "Draft a framework for compute taxation.",
+                                        "Assess risks of autonomous kill chains."
                                     ].map((q, i) => (
                                         <button 
                                             key={i} 
